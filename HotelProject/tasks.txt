@@ -1,0 +1,37 @@
+Description:
+   Create an online hotel booking web app. HTML templates are attached(zip format) in this assignment. This is
+   strongly recommended that you should only use these template files. Please read the important instructions at the bottom
+   before you start development work.
+
+Tasks:
+1. Check Rooms Availability
+   On Home page, there is a widget on the left side to check the rooms availability. This feature will be tested against
+   the current date to next one to three days. For example, if current date is 16 Feb 2021, then
+   Check In:  16 Feb 2021
+   Check Out: 17 Feb 2021 or 18 Feb 2021 or 19 Feb 2021
+   So rooms must be available for these days in your database. Please refer to index.html and availability.html files.
+2. Room Booking
+   Once the room is available, any visitor can book that particular room. On availability.html file, there will be a
+   listing of all rooms available along with with button 'Book Now'. A new form will be opened once visitor clicks on
+   'Book Now' button. Visitor will fill their details like first name, last name, email and phone etc. And click on
+   'Continue to Check out' button. If room is booked successfully, then show message 'Thanks for your booking.'. Please
+   refer to room-booking.html, availability.html and booking-success.html files.
+3. Submit Testimonials
+   Any visitor who booked the room, can submit the testimonial on this portal. Please refer to submit-testimonial.html
+   file, where visitor can fill first name, last name and testimonial text and submit. After submission, redirect visitor
+   to testimonials page, where their testimonial will be listed. Please refer to testimonials.html file.
+
+
+
+
+IMPORTANT INSTRUCTIONS
+1. Do not remove CSS class or id attribute and their values if they start with automation- prefix. But you can add another
+class or id(if absent) if needed. Do not change any text message inside a tag, if it has id or class that starts with
+automation-message- prefix.
+2. Dockerize your application. But docker-compose.yml file is not required.
+3. Your application should expose port 5001, eg http:\\localhost:5001
+4. Use only provided HTML templates in the assignment. But you can add any images and stylesheets to make cosmetic changes.
+
+Good Luck!!!
+
+Download templates.zip below.

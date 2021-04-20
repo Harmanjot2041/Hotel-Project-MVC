@@ -1,0 +1,82 @@
+﻿@model Entities.Entities.Testimonials
+@{
+    ViewData["Title"] = "AddTestimonials";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Five Star Hotel</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+    <link href="~/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/layout.css" rel="stylesheet" type="text/css" />
+    <script src="~/js/maxheight.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <div class="booking-sec">
+        <div id="main" class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                    <h1>Guest Details</h1>
+                    <p id="error"></p>
+                    <form asp-action="AddTestimonials" id="Testimonials">
+                        <div class="form-group">
+                            <label for="automation-input-first-name">First Name</label>
+                            <input type="text" class="form-control" asp-for="FirstName" id="automation-input-first-name" placeholder="Enter first name">
+                        </div>
+                        <div class="form-group">
+                            <label for="automation-input-last-name">Last Name</label>
+                            <input type="text" class="form-control" asp-for="LastName" id="automation-input-last-name" placeholder="Enter last name">
+                        </div>
+                        <div class="form-group">
+                            <label for="automation-input-testimonial">Testimonial</label>
+                            <textarea class="form-control" asp-for="TestimonialText" id="automation-input-testimonial" placeholder="Enter Testimonial"></textarea>
+                        </div>
+                        <button type="button" onclick="onSubmit()" class="automation-submit-testimonial-btn btn btn-primary submit-btn">Submit</button>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+
+    function onSubmit() {
+        if (ValidationForm()) {
+            $("#Testimonials").submit();
+        }
+    }
+    function ValidationForm() {
+        var isValid = true;
+        $("#error").text("");
+        if ($("#automation-input-first-name").val().trim() == "") {
+            $("#error").text(" First Name Is Required");
+            isValid = false;
+            return isValid;
+        }
+        if ($("#automation-input-last-name").val().trim() == "") {
+            $("#error").text(" Last Name  Is Required");
+            isValid = false;
+            return isValid;
+        }
+        if ($("#automation-input-testimonial").val().trim() == "") {
+            $("#error").text(" Testimonial Text Is Required");
+            isValid = false;
+            return isValid;
+        }
+       
+        return isValid;
+    }
+</script>
+
+
+
+
