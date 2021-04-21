@@ -26,7 +26,7 @@ namespace Entities.Entities
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            
+           
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -34,6 +34,8 @@ namespace Entities.Entities
             modelBuilder.Entity<Booking>(entity =>
             {
                 entity.Property(e => e.BookingId).HasColumnName("BookingID");
+
+                entity.Property(e => e.BookingTime).HasColumnType("datetime");
 
                 entity.Property(e => e.CheckInDate).HasColumnType("date");
 
@@ -59,6 +61,8 @@ namespace Entities.Entities
             modelBuilder.Entity<Person>(entity =>
             {
                 entity.Property(e => e.PersonId).HasColumnName("PersonID");
+
+                entity.Property(e => e.CreatedAt).HasColumnType("datetime");
 
                 entity.Property(e => e.Email)
                     .IsRequired()
@@ -102,6 +106,8 @@ namespace Entities.Entities
             {
                 entity.Property(e => e.TestimonialsId).HasColumnName("TestimonialsID");
 
+                entity.Property(e => e.CreatedAt).HasColumnType("datetime");
+
                 entity.Property(e => e.FirstName)
                     .IsRequired()
                     .HasMaxLength(100)
@@ -116,6 +122,8 @@ namespace Entities.Entities
                     .IsRequired()
                     .HasMaxLength(1000)
                     .IsUnicode(false);
+
+                entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
             });
 
             OnModelCreatingPartial(modelBuilder);

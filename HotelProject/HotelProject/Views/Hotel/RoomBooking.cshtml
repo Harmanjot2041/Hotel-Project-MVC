@@ -1,5 +1,8 @@
 ﻿@model Entities.Custom.CustomBooking
 @{
+    Layout = null;
+}
+@{
     ViewData["Title"] = "RoomBooking";
     TempData["CheckInDate"] = TempData["CheckInDate"];
     TempData["CheckOutDate"] = TempData["CheckOutDate"];
@@ -8,148 +11,146 @@
     int tax = 21;
     long total = tax + Model.Room.Price;
 }
-<!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <title>Five Star Hotel</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
-    <link href="~/css/style.css" rel="stylesheet" type="text/css" />
-    <link href="~/css/layout.css" rel="stylesheet" type="text/css" />
-    <script src="~/js/maxheight.js" type="text/javascript"></script>
-</head>
-
-<body>
-    <div class="booking-sec">
-        <div id="main" class="container">
-            @if (ViewBag.message != null)
-            {
-                <div>@ViewBag.message</div>
-            }
-            <div id="error"></div>
-            <div class="row">
-                <div class="col-sm-8">
-                    <h1>Guest Details</h1>
-                    @using (Html.BeginForm("RoomBooking", "Hotel", FormMethod.Post, new { id = "RoomBooking" }))
-                    {
-                <form>
-                    <div class="form-group">
-                        <label for="FirstName">First Name</label>
-                        <input type="text" asp-for="Person.FirstName" class="form-control" id="automation-input-first-name" placeholder="Enter first name">
+    <head>
+        <title>Five Star Hotel</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+        <link href="~/css/style.css" rel="stylesheet" type="text/css" />
+        <link href="~/css/layout.css" rel="stylesheet" type="text/css" />
+        <script src="~/js/maxheight.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <div class="booking-sec">
+            <div id="main" class="container">
+                @if (ViewBag.message != null)
+                {
+                    <div>@ViewBag.message</div>
+                }
+                <div id="error"></div>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <h1>Guest Details</h1>
+                        @using (Html.BeginForm("RoomBooking", "Hotel", FormMethod.Post, new { id = "RoomBooking" }))
+                        {
+                            <form>
+                                <div class="form-group">
+                                    <label for="FirstName">First Name</label>
+                                    <input type="text" asp-for="Person.FirstName" class="form-control" id="automation-input-first-name" placeholder="Enter first name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="LastName">Last Name</label>
+                                    <input type="text" asp-for="Person.LastName" class="form-control" id="automation-input-last-name" placeholder="Enter last name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="Email">Email address</label>
+                                    <input type="email" asp-for="Person.Email" class="form-control" id="automation-input-email" aria-describedby="emailHelp" placeholder="Enter email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="PhoneNo">Phone Number</label>
+                                    <input type="number" asp-for="Person.PhoneNo" class="form-control" id="automation-input-phone" placeholder="Phone Number">
+                                </div>
+                                @Html.HiddenFor(item => item.Room.RoomId)
+                                @Html.HiddenFor(item => item.Room.RoomImage)
+                                @Html.HiddenFor(item => item.Room.RoomType)
+                                @Html.HiddenFor(item => item.Room.Discription)
+                                @Html.HiddenFor(item => item.Room.Capacity)
+                                <button type="button" onclick="SubmitBooking()" class="automation-submit-checkout-btn btn btn-primary submit-btn">Continue to check out</button>
+                            </form>
+                        }
                     </div>
-                    <div class="form-group">
-                        <label for="LastName">Last Name</label>
-                        <input type="text" asp-for="Person.LastName" class="form-control" id="automation-input-last-name" placeholder="Enter last name">
-                    </div>
-                    <div class="form-group">
-                        <label for="Email">Email address</label>
-                        <input type="email" asp-for="Person.Email" class="form-control" id="automation-input-email" aria-describedby="emailHelp" placeholder="Enter email">
-                    </div>
-                    <div class="form-group">
-                        <label for="PhoneNo">Phone Number</label>
-                        <input type="number" asp-for="Person.PhoneNo" class="form-control" id="automation-input-phone" placeholder="Phone Number">
-                    </div>
-                    @Html.HiddenFor(item => item.Room.RoomId)
-                    @Html.HiddenFor(item => item.Room.RoomImage)
-                    @Html.HiddenFor(item => item.Room.RoomType)
-                    @Html.HiddenFor(item => item.Room.Discription)
-                    @Html.HiddenFor(item => item.Room.Capacity)
-                    <button type="button" onclick="SubmitBooking()" class="automation-submit-checkout-btn btn btn-primary submit-btn">Continue to check out</button>
-                </form>
-                    }
-                </div>
-                <div class="col-sm-4">
-                    <div class="order-details">
-                        <h2>Order Details</h2>
-                        <div class="room-preview">
-                            <img src="~/images/@Model.Room.RoomImage" alt="Room preview" />
+                    <div class="col-sm-4">
+                        <div class="order-details">
+                            <h2>Order Details</h2>
+                            <div class="room-preview">
+                                <img src="~/images/@Model.Room.RoomImage" alt="Room preview" />
+                            </div>
+                            <table class="detail-info">
+                                <tr>
+                                    <td>Room Type</td>
+                                    <td class="selected-category">@Model.Room.RoomType</td>
+                                </tr>
+                                <tr>
+                                    <td>Dates</td>
+                                    <td class="selected-category">@ViewBag.CheckInDate - @ViewBag.CheckOutDate</td>
+                                </tr>
+                                <tr>
+                                    <td>No. of nights</td>
+                                    <td class="selected-category">@ViewBag.Nights</td>
+                                </tr>
+                                <tr>
+                                    <td>No. of Rooms</td>
+                                    <td class="selected-category">@ViewBag.Rooms</td>
+                                </tr>
+                            </table>
+                            <table class="price-info">
+                                <tr>
+                                    <td>Subtotal</td>
+                                    <td class="selected-category"> @Model.Room.Price </td>
+                                </tr>
+                                <tr>
+                                    <td>Tax</td>
+                                    <td class="selected-category">$@tax</td>
+                                </tr>
+                            </table>
+                            <table class="total-price">
+                                <tr>
+                                    <td>Total</td>
+                                    <td class="selected-category">@total </td>
+                                </tr>
+                            </table>
                         </div>
-                        <table class="detail-info">
-                            <tr>
-                                <td>Room Type</td>
-                                <td class="selected-category">@Model.Room.RoomType</td>
-                            </tr>
-                            <tr>
-                                <td>Dates</td>
-                                <td class="selected-category">@ViewBag.CheckInDate - @ViewBag.CheckOutDate</td>
-                            </tr>
-                            <tr>
-                                <td>No. of nights</td>
-                                <td class="selected-category">@ViewBag.Nights</td>
-                            </tr>
-                            <tr>
-                                <td>No. of Rooms</td>
-                                <td class="selected-category">@ViewBag.Rooms</td>
-                            </tr>
-                        </table>
-                        <table class="price-info">
-                            <tr>
-                                <td>Subtotal</td>
-                                <td class="selected-category"> @Model.Room.Price </td>
-                            </tr>
-                            <tr>
-                                <td>Tax</td>
-                                <td class="selected-category">$@tax</td>
-                            </tr>
-                        </table>
-                        <table class="total-price">
-                            <tr>
-                                <td>Total</td>
-                                <td class="selected-category">@total </td>
-                            </tr>
-                        </table>
+                        <a href="order-history.html" title="Click here to cancel your order" class="cancel-order">Click here to cancel your order</a>
                     </div>
-                    <a href="order-history.html" title="Click here to cancel your order" class="cancel-order">Click here to cancel your order</a>
                 </div>
+
             </div>
-
         </div>
-    </div>
-</body>
+    </body>
 </html>
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
 
-    function SubmitBooking() {
-        if (ValidationForm()) {
-            $("#RoomBooking").submit();
+        function SubmitBooking() {
+            if (ValidationForm()) {
+                $("#RoomBooking").submit();
+            }
         }
-    }
-    function ValidationForm() {
-        var isValid = true;
-        var emailRegix = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-        $("#error").text("");
-         if ($("#automation-input-first-name").val().trim() == "") {
-            $("#error").text(" First Name Is Required");
-             isValid = false;
-             return isValid;
-        }
-         if ($("#automation-input-last-name").val().trim() == "") {
-            $("#error").text(" Last Name  Is Required");
-             isValid = false;
-             return isValid;
-         }
-         if ($("#automation-input-email").val().trim() == "") {
-            $("#error").text(" Email Is Required");
-             isValid = false;
-             return isValid;
-         }
-         if ($("#automation-input-email").val().trim() != "" && !emailRegix.test($("#Email").val().trim()) ) {
-            $("#error").text("Invalid Email");
-            isValid = false;
+        function ValidationForm() {
+            var isValid = true;
+            var emailRegix = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+            $("#error").text("");
+            if ($("#automation-input-first-name").val().trim() == "") {
+                $("#error").text(" First Name Is Required");
+                isValid = false;
+                return isValid;
+            }
+            if ($("#automation-input-last-name").val().trim() == "") {
+                $("#error").text(" Last Name  Is Required");
+                isValid = false;
+                return isValid;
+            }
+            if ($("#automation-input-email").val().trim() == "") {
+                $("#error").text(" Email Is Required");
+                isValid = false;
+                return isValid;
+            }
+            if ($("#automation-input-email").val().trim() != "" && !emailRegix.test($("#Email").val().trim())) {
+                $("#error").text("Invalid Email");
+                isValid = false;
+                return isValid;
+            }
+            if ($("#automation-input-phone").val().trim() == "") {
+                $("#error").text(" Phone Number Is Required");
+                isValid = false;
+                return isValid;
+            }
+
             return isValid;
         }
-         if ($("#automation-input-phone").val().trim() == "") {
-            $("#error").text(" Phone Number Is Required");
-             isValid = false;
-             return isValid;
-         }
-        
-        return isValid;
-    }
-</script>
+    </script>
 
 
 

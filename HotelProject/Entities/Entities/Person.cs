@@ -12,6 +12,9 @@ namespace Entities.Entities
         public Person()
         {
             Booking = new HashSet<Booking>();
+            CreatedAt = DateTime.Now;
+            IsDeleted = false;
+            IsActive = true;
         }
 
         public long PersonId { get; set; }
@@ -19,6 +22,9 @@ namespace Entities.Entities
         public string LastName { get; set; }
         public string Email { get; set; }
         public long PhoneNo { get; set; }
+        public DateTime? CreatedAt { get; set; }
+        public bool? IsDeleted { get; set; }
+        public bool? IsActive { get; set; }
 
         public virtual ICollection<Booking> Booking { get; set; }
     }

@@ -53,6 +53,7 @@ namespace HotelProject.Controllers
                 ViewBag.Error = "Please Enter Valid No of  Person And Rooms";
                 return View(model);
             }
+            
             return RedirectToAction("SearchResult",model);
         }
 
